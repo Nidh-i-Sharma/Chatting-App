@@ -1,10 +1,8 @@
-import { NextFunction } from "connect";
 import express, { Request, Response } from "express";
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 // import multer from 'multer'
 // import path from 'path'
-import fs from 'fs';
 
 dotenv.config();
 const secret = (process.env.JWTSECRET_KEY) ? process.env.JWTSECRET_KEY : "";

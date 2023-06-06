@@ -1,8 +1,10 @@
 import express from 'express'
 import { createConnection } from "mongoose";
-import {createPost,getPost,updatePost,deletePost,commentAddOnPost,likeOnPost} from "../controller/post";
+import {createPost,getPost,updatePost,deletePost,commentAddOnPost,likeOnPost,retriveCommentOnPost,retriveLikeOnPost} 
+from "../controller/post.js";
 
 const router = express.Router()
+
 router.post('/posts',createPost)
 router.get('/posts',getPost)
 router.put('/posts/:id',updatePost)
