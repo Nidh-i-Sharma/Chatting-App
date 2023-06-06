@@ -1,5 +1,5 @@
 import express from 'express'
-import Post from '../modal/post'
+import Post from '../modal/post.js'
 export default async function createPost(req, res) {
   const { userId, content } = req.body;
 
@@ -13,7 +13,7 @@ export default async function createPost(req, res) {
     res.status(500).json({ message: 'Internal server error' });
   }
 }
-export default async function getPost(req, res) {
+export  async function getPost(req, res) {
   try {
     const posts = await Post.find().sort({ createdAt: -1 });
 
@@ -23,7 +23,7 @@ export default async function getPost(req, res) {
     res.status(500).json({ message: 'Internal server error' });
   }
 }
-export default async function updatePost(req, res) {
+export  async function updatePost(req, res) {
   const { id } = req.params;
   const { content } = req.body;
 
@@ -42,7 +42,7 @@ export default async function updatePost(req, res) {
     res.status(500).json({ message: 'Internal server error' });
   }
 }
-export default async function deletePost(req, res) {
+export  async function deletePost(req, res) {
   const { id } = req.params;
 
   try {
@@ -57,7 +57,7 @@ export default async function deletePost(req, res) {
     res.status(500).json({ message: 'Internal server error' });
   }
 }
-export default async function commentAddOnPost(req, res) {
+export  async function commentAddOnPost(req, res) {
   const { postId } = req.params;
   const { userId, content } = req.body;
 
@@ -76,7 +76,7 @@ export default async function commentAddOnPost(req, res) {
     res.status(500).json({ message: 'Internal server error' });
   }
 }
-export default async function likeOnPost(req, res) {
+export  async function likeOnPost(req, res) {
   const { postId } = req.params;
   const { userId } = req.body;
 
@@ -95,7 +95,7 @@ export default async function likeOnPost(req, res) {
     res.status(500).json({ message: 'Internal server error' });
   }
 }
-export default async function retriveCommentOnPost(req, res) {
+export  async function retriveCommentOnPost(req, res) {
   const { postId } = req.params;
 
   try {
@@ -110,7 +110,7 @@ export default async function retriveCommentOnPost(req, res) {
     res.status(500).json({ message: 'Internal server error' });
   }
 }
-export default async function retriveLikeOnPost(req, res) {
+export  async function retriveLikeOnPost(req, res) {
   const { postId } = req.params;
 
   try {

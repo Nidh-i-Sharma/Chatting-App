@@ -1,10 +1,12 @@
-import express, {  NextFunction ,Request,Response} from 'express'
+import express from 'express'
+import multer from 'multer';
+
 const router = express.Router();
 const upload = multer({
     dest: 'uploads/', // Directory where uploaded files will be stored
   });
-import  { uploadProfile,createUser, updateProfilePicture,logIn , sendingFriendRequest,acceptingFriendRequst,
-  retiveUsersFriends,retiveUsersFollwoers } from '../controller/login.js';
+import createUser, {retiveUsersFollwoers, uploadProfile, updateProfilePicture,logIn , sendingFriendRequest,acceptingFriendRequst,
+  retiveUsersFriends } from '../controller/login.js';
 router.post('/userregister', createUser)
 router.get('/login', logIn)
 router.post('/profile', upload.fields([{ name: 'profilePicture', maxCount: 1 }, { name: 'coverPhoto', maxCount: 1 }] , uploadProfile))

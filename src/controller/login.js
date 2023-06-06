@@ -1,13 +1,13 @@
-import express, { NextFunction, Request, Response } from 'express'
+import express from 'express'
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import userModal from '../modal/user'
-import { generateAccessToken } from '../middleware/auth';
+import userModal from '../modal/user.js'
+import { generateAccessToken } from '../middleware/auth.js';
 import * as dotenv from 'dotenv'
 dotenv.config()
 let jwtkey = process.env.JWTSECRET_KEY
 
-export async function createUser(req, res) {
+export default async function createUser(req, res) {
 
     let { fullname, email, password, contactNumber } = req.body;
     try {
@@ -52,7 +52,7 @@ export async function logIn(req, res) {
 }
 
 // Create user profile route
-export default async function  uploadProfile(req,res){
+export  async function  uploadProfile(req,res){
     const { username, fullName } = req.body;
   
     try {
@@ -79,7 +79,7 @@ export default async function  uploadProfile(req,res){
 }
   
   // Update user profile route
-export default async function updateProfilePicture(req,res){
+export  async function updateProfilePicture(req,res){
     const { username } = req.params;
     const { fullName } = req.body;
   
@@ -106,7 +106,7 @@ export default async function updateProfilePicture(req,res){
       res.status(500).json({ message: 'Internal server error' });
     }
 };
-export default async function sendingFriendRequest(req, res) {
+export  async function sendingFriendRequest(req, res) {
   const { userId } = req.params;
   const { senderId } = req.body;
 
@@ -136,7 +136,7 @@ export default async function sendingFriendRequest(req, res) {
   }
 }
 
-export default async function acceptingFriendRequst(req,res){
+export  async function acceptingFriendRequst(req,res){
  
     const { userId } = req.params;
     const { friendId } = req.body;
@@ -169,7 +169,7 @@ export default async function acceptingFriendRequst(req,res){
       res.status(500).json({ message: 'Internal server error' });
     }  
 }
-export default async function retiveUsersFriends(req,res){
+export  async function retiveUsersFriends(req,res){
     const { userId } = req.params;
   
     try {
@@ -185,7 +185,7 @@ export default async function retiveUsersFriends(req,res){
       res.status(500).json({ message: 'Internal server error' });
     }  
 }
-export default async function retiveUsersFollwoers(req,res){
+export  async function retiveUsersFollwoers(req,res){
     const { userId } = req.params;
   
     try {

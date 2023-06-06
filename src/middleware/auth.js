@@ -1,7 +1,7 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
-// import multer from 'multer'
+import multer from 'multer'
 // import path from 'path'
 
 dotenv.config();

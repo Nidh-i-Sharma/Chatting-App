@@ -1,5 +1,4 @@
-import Schema from 'mongoose'
-const { Schema } = mongoose;
+import mongoose, { Schema } from 'mongoose'
 
 // Define Post schema
 const postSchema = new Schema({

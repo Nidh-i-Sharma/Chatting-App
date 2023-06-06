@@ -1,6 +1,5 @@
 import express from 'express'
-import { createConnection } from "mongoose";
-import {createPost,getPost,updatePost,deletePost,commentAddOnPost,likeOnPost,retriveCommentOnPost,retriveLikeOnPost} 
+import createPost, {getPost,updatePost,deletePost,commentAddOnPost,likeOnPost,retriveCommentOnPost,retriveLikeOnPost} 
 from "../controller/post.js";
 
 const router = express.Router()
@@ -13,3 +12,4 @@ router.post('/posts/:postId/comments',commentAddOnPost)
 router.post('/posts/:postId/likes',likeOnPost)
 router.get('/posts/:postId/comments',retriveCommentOnPost)
 router.get('/posts/:postId/likes',retriveLikeOnPost)
+export default router;
