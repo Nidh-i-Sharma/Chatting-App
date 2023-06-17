@@ -22,10 +22,3 @@ export async function authenticateToken(req, res, next) {
         res.status(500).send({messae:"Internal Server Error"});
     }
 }
-export function generateAccessToken(user) {
-    return jwt.sign({ email: user.email, role: user.role ,id:user._id}, secret, { expiresIn: '2h' })
-}
-
-const upload = multer({
-    dest: 'uploads/', // Directory where uploaded files will be stored
-  });

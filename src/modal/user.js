@@ -1,36 +1,37 @@
-import mongoose, { Schema } from 'mongoose'
-import jwt from 'jsonwebtoken'
-import * as dotenv from 'dotenv'
-dotenv.config()
+import  mongoose  from 'mongoose';
 
-const jwtToken = process.env.JWTSECRET_KEY;
-const userSchema = new Schema({
-    fullname:{
-        type :String,
-        required : true
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  followers: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
     },
-    email:{
-        type :String,
-        required : true 
+  ],
+  following: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
     },
-    password:{
-        type :String,
-    },
-    profilePicture:{
-        type :String,
-        required : true 
-    },
-    coverPhoto:{
-        type :String,
-        required : true 
-    },
-    friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    followers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  ],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
-},
-{ timestamps: true }
-)
-
-
-var userModal = mongoose.model('user', userSchema)
-export default userModal;
+var User = mongoose.model('User', userSchema);
+export default User
