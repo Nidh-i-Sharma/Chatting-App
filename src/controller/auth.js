@@ -81,9 +81,71 @@ export async function login(req, res){
 export async function resetPassword(req, res){
   try {
     // Implement password reset functionality
-    // ...
+    const {email }  = req.body;
+    const user = await User.findOneBy({
+        email: email
+    })
+    if (!user) {
+        return res.json({ message: "User not found" })
+    } else {
+        //user exist , generate otp 
+        const secret = process.env.JWTSECRET_KEY + user.password;
+        const payload = {
+            email: user.email,
+            userId: user._id
+        }
+        const token = jwt.sign(payload, secret, { expiresIn: '15m' });
+        const link = `http://localhost:3000/resetpassword/${user._id}/${token}`;
+        const data = {
+            from: "noreply@algo.com",
+            to: email,
+            subject: "Passord Reset Link",
+            html: `
+            <h2>Please click on the link to reset your password</h2>
+            <p>${link}</p>
+            `
+        }
+        console.log(link);
+        res.send({ message: "Password reset link send successfully", data: data });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+export async function sendforgetpasswordLink(req, res) {
+    //make sure user exist in db
+    try {
+        const { userId, token } = req.params;
+        const { password, confirmPassword } = req.body;
+
+        //check if this id exist in db
+        const user = await User.findById({
+            userId
+        })
+        if (!user || !confirmPassword) {
+            return res.json({ message: " Password must be " })
+        } else {
+            //user exist  
+            const secret = process.env.JWTSECRET_KEY + user.password;
+            try {
+                const payload = jwt.verify(token, secret)
+                //update the pass
+
+                var hashPass = bcrypt.hash(confirmPassword, 10, (err, encrypted) => {
+                    User.findOneAndUpdate({userId}, {
+                        password: encrypted
+                    })
+                })
+                res.send({ message: 'Password updates successfully', email: user.email });
+            } catch (error) {
+                console.log(error);
+                res.send(error);
+            }
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Internal Server Error" })
+    }
+}

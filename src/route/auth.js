@@ -12,6 +12,8 @@ router.post('/login', login);
 // Reset password
 router.post('/reset-password', resetPassword);
 
+router.get('/forgetpassword/:userId/:token',sendforgetpasswordLink)
+
 export default router;
 
 // import express from 'express'
